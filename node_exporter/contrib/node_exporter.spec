@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:		node-exporter
-Version:	0.12.0rc3
+Version:	0.12.0
 Release:	1%{?dist}
 Summary:	Prometheus exporter for machine metrics, written in Go with pluggable metric collectors.
 Group:		System Environment/Daemons
