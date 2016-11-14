@@ -1,6 +1,6 @@
 %define debug_package %{nil}
 
-Name:		jmx_exporter
+Name:		jmx_exporter_systemd
 Version:	0.6
 Release:	1%{?dist}
 Summary:	Prometheus jmx_exporter
@@ -10,7 +10,6 @@ URL:		https://github.com/prometheus/jmx_exporter
 Source0:	https://github.com/prometheus/jmx_exporter/releases/download/%{version}/parent-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 Requires(pre):  /usr/sbin/useradd
-Requires:       daemonize
 AutoReqProv:	No
 
 %description
@@ -18,7 +17,7 @@ AutoReqProv:	No
 Prometheus JMX Exporter
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n jmx_exporter-%{version}
 
 %build
 echo
@@ -30,12 +29,12 @@ mkdir -vp $RPM_BUILD_ROOT/usr/share/prometheus/
 mkdir -vp $RPM_BUILD_ROOT/usr/share/prometheus/jmx_exporter
 mkdir -vp $RPM_BUILD_ROOT/var/lib/prometheus
 mkdir -vp $RPM_BUILD_ROOT/usr/bin
-mkdir -vp $RPM_BUILD_ROOT/etc/init.d
+mkdir -vp $RPM_BUILD_ROOT/usr/lib/systemd/system
 mkdir -vp $RPM_BUILD_ROOT/etc/prometheus/jmx_exporter
 mkdir -vp $RPM_BUILD_ROOT/etc/prometheus/jmx_exporter/examples
 mkdir -vp $RPM_BUILD_ROOT/etc/sysconfig
 
-install -m 755 contrib/jmx_exporter.init $RPM_BUILD_ROOT/etc/init.d/jmx_exporter
+install -m 755 contrib/jmx_exporter.service $RPM_BUILD_ROOT/usr/lib/systemd/system/jmx_exporter.service
 install -m 644 contrib/jmx_exporter.sysconfig $RPM_BUILD_ROOT/etc/sysconfig/jmx_exporter
 install -m 644 contrib/jmx_exporter.yaml $RPM_BUILD_ROOT/etc/prometheus/jmx_exporter/jmx_exporter.yaml
 install -m 755 contrib/jmx_exporter $RPM_BUILD_ROOT/usr/bin/jmx_exporter
@@ -62,13 +61,14 @@ chgrp prometheus /var/run/prometheus
 chmod 774 /var/run/prometheus
 chown prometheus:prometheus /var/log/prometheus
 chmod 744 /var/log/prometheus
+sudo service jmx_exporter start
 
 %files
 %defattr(-,root,root,-)
+/usr/lib/systemd/system/jmx_exporter.service
 /usr/bin/jmx_exporter
 /usr/share/prometheus/jmx_exporter/jmx_exporter.jar
 %config(noreplace) /etc/prometheus/jmx_exporter/jmx_exporter.yaml
-/etc/init.d/jmx_exporter
 %config(noreplace) /etc/sysconfig/jmx_exporter
 /etc/prometheus/jmx_exporter/examples/cassandra.yml
 /etc/prometheus/jmx_exporter/examples/kafka-pre0-8-2.yml

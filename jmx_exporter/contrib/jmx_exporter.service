@@ -1,0 +1,10 @@
+[Unit]
+Description=Prometheus Jmx Exporter Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/jmx_exporter 9090 /etc/prometheus/jmx_exporter/jmx_exporter.yaml
+User=prometheus
+
+[Install]
+WantedBy=multi-user.target
