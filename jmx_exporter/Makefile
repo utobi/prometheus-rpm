@@ -22,4 +22,4 @@ deploy:
 
 clean:
 	rm -rf "$(PWD)/rpmbuild/SOURCES/jmx_exporter-$(VERSION)"
-	rm "$(PWD)/rpmbuild/SOURCES/parent-$(VERSION).tar.gz"
+	rm "$(PWD)/rpmbuild/SOURCES/parent-$(VERSION).zip"
