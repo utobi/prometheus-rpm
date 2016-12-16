@@ -1,0 +1,12 @@
+Build prometheus node_exporter RPMs for el6 and el7
+
+Requirements:
+ - mock installed
+ - user added to mock group, eg: sudo /usr/sbin/usermod -a -G mock $USER
+
+Usage:
+
+make el6
+make el7
+
+rpms are written to directory named "output"

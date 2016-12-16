@@ -1,2 +1,3 @@
 rpmbuild
-
+output
+*.swp
