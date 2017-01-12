@@ -8,7 +8,8 @@ node() {
         checkout scm
 
         withCredentials([[$class: 'UsernamePasswordBinding', credentialsId: "${env.DEPLOY_CREDENTIALS_ID}", variable: 'nexus_repository_credentials']]) {
-            withEnv(["REPOSITORY_CREDENTIALS=${env.nexus_repository_credentials}"]) {
+            withEnv(["WORKSPACE=${pwd()}",
+                     "REPOSITORY_CREDENTIALS=${env.nexus_repository_credentials}"]) {
 
                 for (String folder : folders) {
                     dir(folder) {
