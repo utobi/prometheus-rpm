@@ -19,8 +19,8 @@ rpm:
 	rpmbuild --define '_topdir '"$(PWD)/rpmbuild" -ba --clean contrib/jmx_exporter_systemd.spec
 
 deploy:
-	curl -v -F r=$(REPOSITORY) -F hasPom=false -F e=rpm -F g=$(GROUPID) -F a=jmx_exporter.sysvinit -F v=$(VERSION) -F p=RPM -F file=@$(WORKSPACE)/jmx_exporter/rpmbuild/RPMS/x86_64/jmx_exporter_sysvinit-$(VERSION)-1.el6.x86_64.rpm -u $(REPOSITORY_CREDENTIALS) $(REPOSITORY_URL)
-	curl -v -F r=$(REPOSITORY) -F hasPom=false -F e=rpm -F g=$(GROUPID) -F a=jmx_exporter.systemd -F v=$(VERSION) -F p=RPM -F file=@$(WORKSPACE)/jmx_exporter/rpmbuild/RPMS/x86_64/jmx_exporter_systemd-$(VERSION)-1.el6.x86_64.rpm -u $(REPOSITORY_CREDENTIALS) $(REPOSITORY_URL)
+	curl -v -F r=$(REPOSITORY) -F hasPom=false -F e=rpm -F g=$(GROUPID) -F a=jmx_exporter.sysvinit -F v=$(VERSION) -F p=RPM -F file=@$(WORKSPACE)/jmx_exporter/rpmbuild/RPMS/x86_64/jmx_exporter_sysvinit-$(VERSION)-1.$(OS_NAME).x86_64.rpm -u $(REPOSITORY_CREDENTIALS) $(REPOSITORY_URL)
+	curl -v -F r=$(REPOSITORY) -F hasPom=false -F e=rpm -F g=$(GROUPID) -F a=jmx_exporter.systemd -F v=$(VERSION) -F p=RPM -F file=@$(WORKSPACE)/jmx_exporter/rpmbuild/RPMS/x86_64/jmx_exporter_systemd-$(VERSION)-1.$(OS_NAME).x86_64.rpm -u $(REPOSITORY_CREDENTIALS) $(REPOSITORY_URL)
 
 clean:
 	rm -rf "$(PWD)/rpmbuild/SOURCES/jmx_exporter-$(VERSION)"
