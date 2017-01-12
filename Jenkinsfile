@@ -1,22 +1,27 @@
 #!/usr/bin/env groovy
 
+folders = ["alertmanager", "graphite_exporter", "jmx_exporter", "jmx_javaagent_exporter", "node_exporter", "prometheus", "pushgateway"]
+
 node() {
     try {
-        def folders = ["alertmanager", "graphite_exporter", "jmx_exporter", "jmx_javaagent_exporter", "node_exporter", "prometheus", "pushgateway"]
-
         stage 'Checkout Source'
         checkout scm
 
-        for(String folder : folders) {
-            dir(folder) {
-                stage "Build "+folder
-                sh 'make rpm'
+        withCredentials([[$class: 'UsernamePasswordBinding', credentialsId: "${env.DEPLOY_CREDENTIALS_ID}", variable: 'nexus_repository_credentials']]) {
+            withEnv(["WORKSPACE=${pwd()}",
+                     "REPOSITORY_CREDENTIALS=${env.nexus_repository_credentials}"]) {
 
-                stage "Deploy "+folder
-                withEnv(["FOO=BAR"]) {
-                    echo "make deploy here..."
-                    //sh 'make deploy'
+                for (String folder : folders) {
+                    dir(folder) {
+
+                        stage "Build " + folder
+                        sh "make rpm"
+
+                        stage "Deploy " + folder
+                        sh "make deploy"
+                    }
                 }
+
             }
         }
     } catch (err) {
