@@ -14,7 +14,7 @@ rpm:
 	rpmbuild --define '_topdir '"$(PWD)/rpmbuild" -ba --clean contrib/pushgateway.spec
 
 deploy:
-	curl -v -F r=$(REPOSITORY) -F hasPom=false -F e=rpm -F g=$(GROUPID) -F a=pushgateway -F v=$(VERSION) -F p=RPM -F file=@$(WORKSPACE)/prometheus-rpm/pushgateway/rpmbuild/RPMS/x86_64/pushgateway-$(VERSION)-1.el6.x86_64.rpm -u $(REPOSITORY_CREDENTIALS) $(REPOSITORY_URL)
+	curl -v -F r=$(REPOSITORY) -F hasPom=false -F e=rpm -F g=$(GROUPID) -F a=pushgateway -F v=$(VERSION) -F p=RPM -F file=@$(WORKSPACE)/pushgateway/rpmbuild/RPMS/x86_64/pushgateway-$(VERSION)-1.el6.x86_64.rpm -u $(REPOSITORY_CREDENTIALS) $(REPOSITORY_URL)
 
 clean:
 	rm -rf "$(PWD)/rpmbuild/SOURCES/pushgateway-$(VERSION).linux-amd64"

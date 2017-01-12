@@ -14,8 +14,8 @@ rpm:
 	rpmbuild --define '_topdir '"$(PWD)/rpmbuild" -ba --clean contrib/prometheus_systemd.spec
 
 deploy:
-	curl -v -F r=$(REPOSITORY) -F hasPom=false -F e=rpm -F g=$(GROUPID) -F a=prometheus.systemd -F v=$(VERSION) -F p=RPM -F file=@$(WORKSPACE)/prometheus-rpm/prometheus/rpmbuild/RPMS/x86_64/prometheus-systemd-$(VERSION)-1.el6.x86_64.rpm -u $(REPOSITORY_CREDENTIALS) $(REPOSITORY_URL)
-	curl -v -F r=$(REPOSITORY) -F hasPom=false -F e=rpm -F g=$(GROUPID) -F a=prometheus.sysvinit -F v=$(VERSION) -F p=RPM -F file=@$(WORKSPACE)/prometheus-rpm/prometheus/rpmbuild/RPMS/x86_64/prometheus-sysvinit-$(VERSION)-1.el6.x86_64.rpm -u $(REPOSITORY_CREDENTIALS) $(REPOSITORY_URL)
+	curl -v -F r=$(REPOSITORY) -F hasPom=false -F e=rpm -F g=$(GROUPID) -F a=prometheus.systemd -F v=$(VERSION) -F p=RPM -F file=@$(WORKSPACE)/prometheus/rpmbuild/RPMS/x86_64/prometheus-systemd-$(VERSION)-1.el6.x86_64.rpm -u $(REPOSITORY_CREDENTIALS) $(REPOSITORY_URL)
+	curl -v -F r=$(REPOSITORY) -F hasPom=false -F e=rpm -F g=$(GROUPID) -F a=prometheus.sysvinit -F v=$(VERSION) -F p=RPM -F file=@$(WORKSPACE)/prometheus/rpmbuild/RPMS/x86_64/prometheus-sysvinit-$(VERSION)-1.el6.x86_64.rpm -u $(REPOSITORY_CREDENTIALS) $(REPOSITORY_URL)
 
 clean:
 	rm -rf "$(PWD)/rpmbuild/SOURCES/prometheus-$(VERSION).linux-amd64"
