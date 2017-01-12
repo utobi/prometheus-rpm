@@ -13,6 +13,7 @@ node() {
 
                 for (String folder : folders) {
                     dir(folder) {
+
                         stage "Build " + folder
                         sh "make rpm"
 
