@@ -8,7 +8,7 @@ After=network.target
 [Service]
 EnvironmentFile=-/etc/sysconfig/mysqld_exporter
 User=prometheus
-ExecStart=/usr/bin/mysqld_exporter $MYSQLD_EXPORTER_OPTS
+ExecStart=/usr/bin/mysqld_exporter $ARGS
 Restart=on-failure
 
 [Install]
