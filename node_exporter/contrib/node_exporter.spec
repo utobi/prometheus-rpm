@@ -3,7 +3,7 @@
 %bcond_with sysvinit
 %bcond_without systemd
 
-Name:		graphite-exporter
+Name:		node-exporter
 Version:        %{version}
 %if %{with sysvinit}
 Release:        1.sysvinit%{?dist}
@@ -11,11 +11,11 @@ Release:        1.sysvinit%{?dist}
 %if %{with systemd}
 Release:        1%{?dist}
 %endif
-Summary:	Prometheus exporter for receiving graphite metrics.
+Summary:	Prometheus exporter for machine metrics, written in Go with pluggable metric collectors.
 Group:		System Environment/Daemons
 License:	See the LICENSE file at github.
-URL:		https://github.com/prometheus/graphite_exporter
-Source0:        https://github.com/prometheus/graphite_exporter/releases/download/%{version}/graphite_exporter-%{version}.linux-amd64.tar.gz
+URL:		https://github.com/prometheus/node_exporter
+Source0:        https://github.com/prometheus/node_exporter/releases/download/%{version}/node_exporter-%{version}.linux-amd64.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 Requires(pre):  /usr/sbin/useradd
 %if %{with sysvinit}
@@ -33,33 +33,27 @@ AutoReqProv:    No
 Prometheus exporter for machine metrics, written in Go with pluggable metric collectors.
 
 %prep
-%setup -q -n graphite_exporter-%{version}.linux-amd64
+%setup -q -n node_exporter-%{version}.linux-amd64
 
 %build
 echo
 
 %install
-mkdir -vp $RPM_BUILD_ROOT/var/log/prometheus/
 mkdir -vp $RPM_BUILD_ROOT/var/run/prometheus
 mkdir -vp $RPM_BUILD_ROOT/var/lib/prometheus
 mkdir -vp $RPM_BUILD_ROOT/usr/bin
+mkdir -vp $RPM_BUILD_ROOT/opt/prometheus
 %if %{with sysvinit}
 mkdir -vp $RPM_BUILD_ROOT/etc/init.d
 mkdir -vp $RPM_BUILD_ROOT/etc/sysconfig
+install -m 644 contrib/node_exporter.sysconfig $RPM_BUILD_ROOT/etc/sysconfig/node_exporter
+install -m 755 contrib/node_exporter.init $RPM_BUILD_ROOT/etc/init.d/node_exporter
 %endif
 %if %{with systemd}
 mkdir -vp $RPM_BUILD_ROOT/usr/lib/systemd/system
+install -m 755 contrib/node_exporter.service $RPM_BUILD_ROOT/usr/lib/systemd/system/node_exporter.service
 %endif
-
-install -m 755 graphite_exporter $RPM_BUILD_ROOT/usr/bin/graphite_exporter
-%if %{with sysvinit}
-install -m 755 contrib/graphite_exporter.init $RPM_BUILD_ROOT/etc/init.d/graphite_exporter
-install -m 644 contrib/graphite_exporter.sysconfig $RPM_BUILD_ROOT/etc/sysconfig/graphite_exporter
-%endif
-%if %{with systemd}
-install -m 755 contrib/graphite_exporter.service $RPM_BUILD_ROOT/usr/lib/systemd/system/graphite_exporter.service
-%endif
-
+install -m 755 node_exporter $RPM_BUILD_ROOT/usr/bin/node_exporter
 
 %clean
 
@@ -73,19 +67,19 @@ exit 0
 %post
 chgrp prometheus /var/run/prometheus
 chmod 774 /var/run/prometheus
-chown prometheus:prometheus /var/log/prometheus
-chmod 744 /var/log/prometheus
+chown prometheus:prometheus /opt/prometheus
+chmod 744 /opt/prometheus
+sudo service node_exporter start
 
 %files
 %defattr(-,root,root,-)
-/usr/bin/graphite_exporter
+/usr/bin/node_exporter
 /var/run/prometheus
-/var/log/prometheus
+/opt/prometheus
 %if %{with sysvinit}
-/etc/init.d/graphite_exporter
-%config(noreplace) /etc/sysconfig/graphite_exporter
+%config(noreplace) /etc/sysconfig/node_exporter
+/etc/init.d/node_exporter
 %endif
 %if %{with systemd}
-/usr/lib/systemd/system/graphite_exporter.service
+/usr/lib/systemd/system/node_exporter.service
 %endif
-

@@ -1,17 +1,1 @@
-Usage of alertmanager:
-  -config.file string
-    	Alertmanager configuration file name. (default "alertmanager.yml")
-  -log.format value
-    	If set use a syslog logger or JSON logging. Example: logger:syslog?appname=bob&local=7 or logger:stdout?json=true. Defaults to stderr.
-  -log.level value
-    	Only log messages with the given severity or above. Valid levels: [debug, info, warn, error, fatal]. (default info)
-  -storage.path string
-    	Base path for data storage. (default "data/")
-  -version
-    	Print version information.
-  -web.external-url string
-    	The URL under which Alertmanager is externally reachable (for example, if Alertmanager is served via a reverse proxy). Used for generating relative and absolute links back to Alertmanager itself. If the URL has a path portion, it will be used to prefix all HTTP endpoints served by Alertmanager. If omitted, relevant URL components will be derived automatically.
-  -web.listen-address string
-    	Address to listen on for the web interface and API. (default ":9093")
-
 ARGS="-config.file=/etc/prometheus/alertmanager/alertmanager.yaml"

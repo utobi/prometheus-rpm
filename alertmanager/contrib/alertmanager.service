@@ -1,0 +1,10 @@
+[Unit]
+Description=Prometheus Alertmanager
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/prometheus -config.file=/etc/prometheus/alertmanager/alertmanager.yaml
+User=prometheus
+
+[Install]
+WantedBy=multi-user.target

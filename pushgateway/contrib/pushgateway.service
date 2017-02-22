@@ -1,0 +1,10 @@
+[Unit]
+Description=Prometheus Pushgateway
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/pushgateway
+User=prometheus
+
+[Install]
+WantedBy=multi-user.target

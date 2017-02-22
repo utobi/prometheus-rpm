@@ -1,0 +1,12 @@
+[Unit]
+Description=Prometheus graphite exporter
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/graphite_exporter
+User=prometheus
+
+[Install]
+WantedBy=multi-user.target
+
+
