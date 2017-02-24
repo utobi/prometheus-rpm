@@ -31,5 +31,5 @@ deploy:
 	curl -v -F r=$(REPOSITORY) -F hasPom=false -F e=rpm -F g=$(GROUPID) -F a=$(NAME).sysvinit -F v=$(VERSION) -F p=RPM -F file=@$(WORKSPACE)/$(NAME)/rpmbuild/RPMS/x86_64/$(NAME)-$(VERSION)-1.sysvinit.$(OS_NAME).x86_64.rpm -u $(REPOSITORY_CREDENTIALS) $(REPOSITORY_URL)
 
 tag:
-	git tag -a "$(NAME):$(VERSION)" -m "$(NAME) in version $(VERSION)"
+	git tag -a "$(NAME)_$(VERSION)" -m "$(NAME) in version $(VERSION)"
 
