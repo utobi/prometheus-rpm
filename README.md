@@ -3,4 +3,12 @@ Stuff to build rpms for prometheus, node_exporter and alertmanager for amd64 unt
 
 Requires rpmbuild to be installed. To run, simply go into a subdir and run make. 
 
-This is currently used internally for our RHEL 6.6 infrastructure, 'make deploy' deploys it to our internal Nexus repository where it is picked up by yum.
+# Currently used versions
+
+alertmanager: 0.5.1
+graphite_exporter: 0.1.0
+jmx_exporter: 0.6
+node_exporter: 0.13.0
+prometheus: 1.5.2
+pushgateway: 0.3.1
+
