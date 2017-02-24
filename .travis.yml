@@ -3,7 +3,12 @@ before_install:
 - sudo apt-get update -qq
 - sudo apt-get install -qq rpm
 env:
+- FOLDER=alertmanager
+- FOLDER=graphite_exporter
+- FOLDER=jmx_exporter
+- FOLDER=node_exporter
 - FOLDER=prometheus
+- FOLDER=pushgateway
 script: cd $FOLDER && make rpm clean
 deploy:
   provider: releases
