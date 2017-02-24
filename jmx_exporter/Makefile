@@ -24,12 +24,3 @@ rpm:
 clean:
 	rm -rf "$(PWD)/rpmbuild/SOURCES/jmx_exporter-$(VERSION)"
 	rm "$(PWD)/rpmbuild/SOURCES/parent-$(VERSION).zip"
-
-### deploy to nexus
-deploy:
-	curl -v -F r=$(REPOSITORY) -F hasPom=false -F e=rpm -F g=$(GROUPID) -F a=$(NAME) -F v=$(VERSION) -F p=RPM -F file=@$(WORKSPACE)/$(NAME)/rpmbuild/RPMS/x86_64/$(NAME)-$(VERSION)-1.$(OS_NAME).x86_64.rpm -u $(REPOSITORY_CREDENTIALS) $(REPOSITORY_URL)
-	curl -v -F r=$(REPOSITORY) -F hasPom=false -F e=rpm -F g=$(GROUPID) -F a=$(NAME).sysvinit -F v=$(VERSION) -F p=RPM -F file=@$(WORKSPACE)/$(NAME)/rpmbuild/RPMS/x86_64/$(NAME)-$(VERSION)-1.sysvinit.$(OS_NAME).x86_64.rpm -u $(REPOSITORY_CREDENTIALS) $(REPOSITORY_URL)
-
-tag:
-	git tag -a "v$(VERSION)__$(NAME)" -m "$(NAME) in version $(VERSION)"
-

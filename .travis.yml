@@ -10,12 +10,3 @@ env:
 - FOLDER=prometheus
 - FOLDER=pushgateway
 script: cd $FOLDER && make rpm clean
-deploy:
-  provider: releases
-  api_key:
-    secure: ZEx8xoAl/d3Y7jPCby5G+2kkk4zr/oKJE4qlsL+ujjYzRjnWzcVq0RHNL3fFeiBemBzw5wQxq+YUGkfNV545C2jHHe5EBUedCPiV+LFlXC19k5vYOURgraNcXhoQsKDRUASusV/6UEu25TsCe9OvoY7ZCPUOIe/mcI7okcWlaWa4tKRU+h+C3m5Z4Si0TJl36gnhgIT0qt7RU99EMQ1GbGdPMkHjS0cqUKblRYzrQHBJuVr88tnKi9VYmANCTfWhgZgfWioccYukNa81I6vPRHe98VutuhAiF1mfwe5F4R38U/NYrlXMd7CkzmoezvXaeepiRShP94MXNkTInZ+j9j7QX66NPgZMAHJ0phHNpW1k6F0i6+kvjr3P3QeAA+LRSczRBMAcvFeB9F45HgJ6Fg7uWmY3FPmPIRxfUhC1yP6CY1Cg+rZR3ioJLi3h/7/gJMaEez6/aXks9j9Cnl9/KX+zNrmT7yE748GMn5nr0/DyNKbEhlLzanGEOqa+s54NvCOsaYqy6wYMn0EnuCUR91oELEApEWBxlJt7pHSNCkjZwYJBhFX/wsHxncDdRummbQqVI7yq6lFOkKZy6HDN2iM/wj4fwoK1Enb36oMGAHHuEnU4UWybSgY5nuFANb+xJHzeyqw1y3EJ6P8azrizipMDSgJiRRnYztrtO75s3+Q=
-  file_glob: true
-  file: "*/rpmbuild/*/*.rpm"
-  skip_cleanup: true
-  on:
-    tags: true
