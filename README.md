@@ -4,7 +4,6 @@ Stuff to build rpms for prometheus, node_exporter and alertmanager for amd64 unt
 Requires rpmbuild to be installed. To run, simply go into a subdir and run make. 
 
 # Currently used versions
-
 alertmanager: v0.5.1
 graphite_exporter: v0.1.0
 jmx_exporter: v0.6
