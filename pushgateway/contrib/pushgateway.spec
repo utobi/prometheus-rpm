@@ -79,6 +79,8 @@ chmod 744 /var/log/prometheus
 %files
 %defattr(-,root,root,-)
 /usr/bin/pushgateway
+/var/run/prometheus
+/var/log/prometheus
 %if %{with sysvinit}
 /etc/init.d/pushgateway
 %config(noreplace) /etc/sysconfig/pushgateway
